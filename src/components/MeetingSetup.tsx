@@ -1,7 +1,7 @@
 import { DeviceSettings, useCall, VideoPreview } from "@stream-io/video-react-sdk";
 import { useEffect, useState } from "react";
 import { Card } from "./ui/card";
-import { CameraIcon, MicIcon, SettingsIcon } from "lucide-react";
+import { CameraIcon, MicIcon, SettingsIcon, Copy } from "lucide-react";
 import { Switch } from "./ui/switch";
 import { Button } from "./ui/button";
 
@@ -110,16 +110,29 @@ function MeetingSetup({ onSetupComplete }: { onSetupComplete: () => void }) {
                     </div>
                     <DeviceSettings />
                   </div>
-                </div>
 
-                {/* JOIN BTN */}
-                <div className="space-y-3 mt-8">
-                  <Button className="w-full" size="lg" onClick={handleJoin}>
-                    Join Meeting
-                  </Button>
-                  <p className="text-xs text-center text-muted-foreground">
-                    Do not worry, our team is super friendly! We want you to succeed. 🎉
-                  </p>
+                  {/* COPY MEETING ID */}
+                  <div className="flex items-center justify-center mt-5">
+                    <div className="flex items-center justify-center gap-3">
+                      <div className="flex items-center justify-center">
+                        <Copy onClick={() => navigator.clipboard.writeText(call.id)} className="h-8 w-8 text-primary cursor-pointer" />
+                      </div>
+                      <div>
+                        <p className="font-medium">Copy Meeting ID</p>
+                        <p className="text-sm text-muted-foreground">Share with friends</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* JOIN BTN */}
+                  <div className="space-y-3 mt-8">
+                    <Button className="w-full" size="lg" onClick={handleJoin}>
+                      Join Meeting
+                    </Button>
+                    <p className="text-xs text-center text-muted-foreground">
+                      Do not worry, our team is super friendly! We want you to succeed. 🎉
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

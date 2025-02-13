@@ -184,9 +184,9 @@ function InterviewScheduleUI() {
                     <SelectValue placeholder="Select candidate" />
                   </SelectTrigger>
                   <SelectContent>
-                    {candidates.map((candidate) => (
-                      <SelectItem key={candidate.clerkId} value={candidate.clerkId}>
-                        <UserInfo user={candidate} />
+                    {users.map((user) => (
+                      <SelectItem key={user.clerkId} value={user.clerkId}>
+                        <UserInfo user={user} />
                       </SelectItem>
                     ))}
                   </SelectContent>

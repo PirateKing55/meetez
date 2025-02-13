@@ -13,12 +13,10 @@ export const syncUser = mutation({
       .query("users")
       .filter((q) => q.eq(q.field("clerkId"), args.clerkId))
       .first();
-
     if (existingUser) return;
-
     return await ctx.db.insert("users", {
       ...args,
-      role: "candidate",
+      role: "interviewer",
     });
   },
 });

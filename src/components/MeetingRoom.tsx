@@ -5,8 +5,9 @@ import {
   PaginatedGridLayout,
   SpeakerLayout,
   useCallStateHooks,
+  useCall,
 } from "@stream-io/video-react-sdk";
-import { LayoutListIcon, LoaderIcon, UsersIcon } from "lucide-react";
+import { LayoutListIcon, LoaderIcon, UsersIcon, Copy } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./ui/resizable";
@@ -26,6 +27,10 @@ function MeetingRoom() {
   const [showParticipants, setShowParticipants] = useState(false);
   const { useCallCallingState } = useCallStateHooks();
 
+  const call = useCall();
+
+  if (!call) return null;
+
   const callingState = useCallCallingState();
 
   if (callingState !== CallingState.JOINED) {
@@ -43,6 +48,16 @@ function MeetingRoom() {
           {/* VIDEO LAYOUT */}
           <div className="absolute inset-0">
             {layout === "grid" ? <PaginatedGridLayout /> : <SpeakerLayout />}
+
+            <div className="flex items-center justify-center gap-3 mt-5">
+              <div className="flex items-center justify-center">
+                <Copy onClick={() => navigator.clipboard.writeText(call.id)} className="h-8 w-8 text-primary cursor-pointer" />
+              </div>
+              <div>
+                <p className="font-medium">Copy Meeting ID</p>
+                <p className="text-sm text-muted-foreground">Share with friends</p>
+              </div>
+            </div>
 
             {/* PARTICIPANTS LIST OVERLAY */}
             {showParticipants && (
